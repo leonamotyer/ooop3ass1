@@ -1,4 +1,4 @@
-# 3D-shape-sorter
+# 3D-shape-sorter (Object Oriented Programming3 Assignment1)
  ## Getting Started
 
 ### Prerequisites
