@@ -4,15 +4,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.List;
 
-import shapes.Cone;
-import shapes.Cylinder;
-import shapes.OctagonalPrism;
-import shapes.PentagonalPrism;
-import shapes.Pyramid;
-import shapes.Shape3D;
-import shapes.SquarePrism;
-import shapes.TriangularPrism;
+import shapes.*;
 
 
 public class AppDriver
@@ -24,9 +18,7 @@ public class AppDriver
 		String filePath = "";
 		String shapePropType = "";
 		String sortType = "";
-		String numberOfShapes = "";
 		
-		ArrayList<Shape3D> shapes = new ArrayList<>();
 		
 		if (args.length > 0) {
 			for (int i=0; i < args.length; i++) {
@@ -68,54 +60,25 @@ public class AppDriver
 		
 		
 		if (!filePath.isEmpty()) {
-			try {
-				Files.lines(Paths.get(filePath)).forEach(line -> {
-					if (line != null && !line.trim().isEmpty()) {
-						String[] parts = line.split(" ");
-						if (parts.length == 3) {
-							switch (parts[0].toLowerCase()) {
-								case "cone":
-									shapes.add( new Cone(Double.parseDouble(parts[1]), Double.parseDouble(parts[2])));
-									break;
-								case "cylinder":
-									shapes.add( new Cylinder(Double.parseDouble(parts[1]), Double.parseDouble(parts[2])));
-									break;
-								case "octagonalprism":
-									shapes.add( new OctagonalPrism(Double.parseDouble(parts[1]), Double.parseDouble(parts[2])));
-									break;
-								case "pentagonalprism":
-									shapes.add( new PentagonalPrism(Double.parseDouble(parts[1]), Double.parseDouble(parts[2])));
-									break;
-								case "pyramid":
-									shapes.add( new Pyramid(Double.parseDouble(parts[1]), Double.parseDouble(parts[2])));
-									break;
-								case "squareprism":
-									shapes.add( new SquarePrism(Double.parseDouble(parts[1]), Double.parseDouble(parts[2])));
-									break;
-								case "triangularprism":
-									shapes.add( new TriangularPrism(Double.parseDouble(parts[1]), Double.parseDouble(parts[2])));
-									break;
-							}
-							
-						}
-						else {}
-					}
-	    			else {
-	                    System.err.println("Invalid line format: " + line);
-	                }
-				});
-			}
-			catch(IOException e){
-				System.err.println("The file titled " + filePath + " was not found");
-			}
+			Shape3D[] shapes = generateShapes(filePath);
 			
+			// Used to test correct File I/O implementation
+			// Delete before submission
+			int count = 1;
+			if (shapes.length != 0) {
+    			for (Shape3D shape : shapes) {
+    				System.out.println(count + ". " + shape.toString());
+    				count += 1;
+    			}
+			}
 		}
 		
-		// Used to test correct File I/O implementation
-		// Delete before submission
-		for (Shape3D shape : shapes) {
-			System.out.println(shape.toString());
-		}
+		
+		
+		
+		
+		
+		
 		
 		
 		
@@ -133,6 +96,76 @@ public class AppDriver
 		// algorithm on a list of comparables to sort using either the
 		// natural order (comparable) or other orders (comparators)
 
+	}
+	public static Shape3D[] generateShapes(String filePath) {
+		int numberOfShapes = 0;
+		try {
+			List<String> lines = Files.readAllLines(Paths.get(filePath));
+			
+			if (!lines.isEmpty()) {
+				
+		        try {
+		        	numberOfShapes = Integer.parseInt(lines.get(0));
+		        } 
+		        catch (NumberFormatException e) {
+		            System.err.println("Invalid shape count on the first line of: " + lines.get(0));
+		        }
+		        
+		        Shape3D[] shapes = new Shape3D[numberOfShapes];
+		        
+		        for (int i = 1; i < numberOfShapes + 1; i++) {
+		        	String line = lines.get(i);
+		        	if (line != null && !line.trim().isEmpty()) {
+		        		String[] parts = line.split(" ");
+		        		
+		        		String type = parts[0].toLowerCase();
+		        		
+		        		try {
+		                    double param1 = Double.parseDouble(parts[1]);
+		                    double param2 = Double.parseDouble(parts[2]);
+		                    
+		                    switch (type) {
+			                    case "cone":
+			                        shapes[i - 1] = new Cone(param1, param2);
+			                        break;
+			                    case "cylinder":
+			                        shapes[i - 1] = new Cylinder(param1, param2);
+			                        break;
+			                    case "octagonalprism":
+			                        shapes[i - 1] = new OctagonalPrism(param1, param2);
+			                        break;
+			                    case "pentagonalprism":
+			                        shapes[i - 1] = new PentagonalPrism(param1, param2);
+			                        break;
+			                    case "pyramid":
+			                        shapes[i - 1] = new Pyramid(param1, param2);
+			                        break;
+			                    case "squareprism":
+			                        shapes[i - 1] = new SquarePrism(param1, param2);
+			                        break;
+			                    case "triangularprism":
+			                        shapes[i - 1] = new TriangularPrism(param1, param2);
+			                        break;
+			                    default:
+			                        System.err.println("Skipping unknown shape type: " + type);	
+			                        break;
+		                    }
+		        		}
+		        		catch (NumberFormatException e) {
+		        			System.err.println("Parameters: " + parts[1] + "or" + parts[2] + "are not valid decimals");
+		        		}
+		        	}
+		        	
+		        }
+		        System.out.println("Shapes count is: " + shapes.length);
+		        return shapes;
+			}
+		}
+		catch(IOException e){
+			System.err.println("The file titled " + filePath + " was not found");
+		}
+		Shape3D[] emptyShapes = new Shape3D[0];
+		return emptyShapes;
 	}
 
 }
