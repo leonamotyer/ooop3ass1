@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import appDomain.Algorithms;
 
 import shapes.*;
 
@@ -127,31 +128,31 @@ public class AppDriver
 		                    switch (type) {
 									case "cone":
 			                            shapes[i - 1] = new Cone(param1, param2);
-			                            algorithms.coneArray[i - 1] = (Cone) shapes[i - 1];
+			                            Algorithms.coneArray[i - 1] = (Cone) shapes[i - 1];
 			                            break;
 			                        case "cylinder":
 			                            shapes[i - 1] = new Cylinder(param1, param2);
-			                            algorithms.cylinderArray[i - 1] = (Cylinder) shapes[i - 1];
+			                            Algorithms.cylinderArray[i - 1] = (Cylinder) shapes[i - 1];
 			                            break;
 			                        case "octagonalprism":
 			                            shapes[i - 1] = new OctagonalPrism(param1, param2);
-			                            algorithms.octagonArray[i - 1] = (OctagonalPrism) shapes[i - 1];
+			                            Algorithms.octagonArray[i - 1] = (OctagonalPrism) shapes[i - 1];
 			                            break;
 			                        case "pentagonalprism":
 			                            shapes[i - 1] = new PentagonalPrism(param1, param2);
-			                            algorithms.pentArray[i - 1] = (PentagonalPrism) shapes[i - 1];
+			                            Algorithms.pentArray[i - 1] = (PentagonalPrism) shapes[i - 1];
 			                            break;
 			                        case "pyramid":
 			                            shapes[i - 1] = new Pyramid(param1, param2);
-			                            algorithms.pyramidArray[i - 1] = (Pyramid) shapes[i - 1];
+			                            Algorithms.pyramidArray[i - 1] = (Pyramid) shapes[i - 1];
 			                            break;
 			                        case "squareprism":
 			                            shapes[i - 1] = new SquarePrism(param1, param2);
-			                            algorithms.squareArray[i - 1] = (SquarePrism) shapes[i - 1];
+			                            Algorithms.squareArray[i - 1] = (SquarePrism) shapes[i - 1];
 			                            break;
 			                        case "triangularprism":
 			                            shapes[i - 1] = new TriangularPrism(param1, param2);
-			                            algorithms.triangleArray[i - 1] = (TriangularPrism) shapes[i - 1];
+			                            Algorithms.triangleArray[i - 1] = (TriangularPrism) shapes[i - 1];
 			                            break;
 			                        default:
 			                        System.err.println("Skipping unknown shape type: " + type);	
