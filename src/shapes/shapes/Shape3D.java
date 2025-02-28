@@ -1,4 +1,5 @@
 package shapes;
+
 import java.util.Comparator;
 
 public abstract class Shape3D implements Comparable<Shape3D> {
@@ -40,5 +41,18 @@ public abstract class Shape3D implements Comparable<Shape3D> {
         return this.getClass().getSimpleName() + " [height=" + height 
                 + ", volume=" + getVolume() 
                 + ", baseArea=" + getBaseArea() + "]";
+    }
+    
+    
+    public String heightToString() {
+        return this.getClass().getSimpleName() + " [height=" + height + "]";
+    }
+    
+    public String volumeToString() {
+        return this.getClass().getSimpleName() + " [volume=" + getVolume() + "]";
+    }
+    
+    public String baseToString() {
+        return this.getClass().getSimpleName() + " [baseArea=" + getBaseArea() + "]";
     }
 }
