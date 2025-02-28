@@ -13,23 +13,38 @@ import appDomain.Algorithms;
 
 public class AppDriver
 {
-
+	/**
+	 * main Method used to collect and use user inputs via command
+	 * line arguments, create an array of Shape3D objects, and test
+	 * the performance of 6 different sorting algorithms.
+	 * 
+	 * Error messages are used to handle invalid user inputs and exceptions. 
+	 * When an error message is displayed, the program will end so the user 
+	 * can immediately enter new command line arguments.
+	 * 
+	 * Used the -f"res\shapes1".txt as the file parsing
+	 * 
+	 * @param args the String array containing the command line arguments
+	 */
 	public static void main( String[] args )
 	{
-		// TODO Auto-generated method stub
 		String filePath = "";
 		String shapePropType = "";
 		String sortType = "";
 		
-		
-		//reading command line arguments
+		// Check if command line arguments were entered
 		if (args.length > 0) {
 			for (int i=0; i < args.length; i++) {
+				
+				// Check for flag string:
+				// - Exception thrown if the command line arguments aren't 2 characters i.e. flag
+				
+				// Check for filePath, shapePropType and sortType:
+				// - Exception thrown if they don't contain characters after the first two i.e. -f
+				
+				// Any time a check fails, an error message will be displayed and the String that 
+				// caused the failure will be displayed
 				try {
-					// Check for flag string:
-					// - Exception thrown if the command line arguments aren't 2 characters i.e. flag
-					// Check for filePath, shapePropType and sortType:
-					// - Exception thrown if the "" "" "" don't contain characters after the first two i.e. 
 					String flag = args[i].substring(0, 2); 
 					if (flag.equalsIgnoreCase("-F") && args[i].length() > 2) { 
 		
@@ -37,7 +52,7 @@ public class AppDriver
 				        System.out.println("File Path Selected: " + filePath);
 				    }
 				    else if (flag.equalsIgnoreCase("-T") && args[i].length() > 2) {
-				    	shapePropType = args[i].substring(2);
+				    	shapePropType = args[i].substring(2).toLowerCase();
 				    	
 				    	if (shapePropType.equalsIgnoreCase("v") 
 				    			|| shapePropType.equalsIgnoreCase("h")
@@ -52,7 +67,7 @@ public class AppDriver
 				    	
 				    }
 				    else if (flag.equalsIgnoreCase("-S") && args[i].length() > 2) {
-				    	sortType = args[i].substring(2);
+				    	sortType = args[i].substring(2).toLowerCase();
 				    	
 				    	if (sortType.equalsIgnoreCase("b") 
 				    			|| sortType.equalsIgnoreCase("s")
@@ -96,17 +111,26 @@ public class AppDriver
 		
 		Shape3D[] shapes = generateShapes(filePath);
 		
-		// Used to test correct File I/O implementation
-		// Delete before submission
+
 		int count = 1;
 		if (shapes.length != 0) {
-			System.out.println("\nPre Sorted Shapes:");
+			System.out.println("\n\nPre Sorted Shapes:");
 			
-			if (shapes.length > 1000) {
+			if (shapes.length > 100 && shapes.length < 1001) {
+				int hundred = 100;
+				System.out.println("First Element is: " + shapes[0].toString());
+				for (int i = 0; i < 10; i++) {
+					System.out.println(hundred + "-th Element is: " + shapes[hundred-1].toString());
+					hundred += 100;
+				}
+				System.out.println("Last Element is: " + shapes[shapes.length-1].toString());
+				
+			}
+			else if (shapes.length > 1000) {
 				int thousand = 1000;
 				System.out.println("First Element is: " + shapes[0].toString());
 				for (int i = 0; i < 20; i++) {
-					System.out.println(thousand + "-th Element is: " + shapes[thousand].toString());
+					System.out.println(thousand + "-th Element is: " + shapes[thousand-1].toString());
 					thousand += 1000;
 				}
 				System.out.println("Last Element is: " + shapes[shapes.length-1].toString());
@@ -131,13 +155,19 @@ public class AppDriver
 			System.err.println("File found but had no shapes");
 			System.exit(0);
 		}
-			
-
-
+		
+		
 	}
 	
+	/**
+	 * Method to return the full word string of the sortType parameter  
+	 * 
+	 * @param sortType the type of sorting algorithm selected via command line argument.
+	 * 
+	 * @return String the full word corresponding to the sortType parameter
+	 */
 	public static String sortTypeToString(String sortType) {
-		switch (sortType) {
+		switch (sortType.toLowerCase()) {
 			case "s":
 				return "Selection";
 			case "i":
@@ -153,8 +183,20 @@ public class AppDriver
 		}
 	}
 	
-	
-	
+	/**
+	 * Method to  
+	 * 
+	 * Used the -f"res\shapes1".txt as the file parsing
+	 * 
+	 * The method will print the contents of the sorted array, only 
+	 * showing the shape property that was used to sort.
+	 * 
+	 * @param shapes the array of Shape3D objects to be sorted
+	 * @param sortType the type of sort algorithm to be used
+	 * @param shapePropType the shape property used to compare each object
+	 * 
+	 * @return long stop-start run time for the sorting algorithm used
+	 */
 	public static Shape3D[] generateShapes(String filePath) {
 		int numberOfShapes = 0;
 		try {
@@ -205,7 +247,7 @@ public class AppDriver
 			                            shapes[i - 1] = new TriangularPrism(param1, param2);
 			                            break;
 			                        default:
-			                        System.err.println("Skipping unknown shape type: " + type);	
+			                        	System.err.println("Skipping unknown shape type: " + type);	
 			                        break;
 		                    }
 		        		}
@@ -215,12 +257,13 @@ public class AppDriver
 		        	}
 		        	
 		        }
-		        System.out.println("Shapes count is: " + shapes.length);
+		        System.out.println("\n\nShapes count is: " + shapes.length);
 		        return shapes;
 			}
 		}
 		catch(IOException e){
 			System.err.println("The file titled \'" + filePath + "\' was not found");
+			System.exit(0);
 		}
 		Shape3D[] emptyShapes = new Shape3D[0];
 		return emptyShapes;

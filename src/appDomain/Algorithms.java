@@ -27,7 +27,7 @@
  * The class also provides utility functions to swap 
  * elements during sorting.
  *
- * These algorithms will be used in the appliation to
+ * These algorithms will be used in the application to
  * analyze sorting performance.
  */
 
@@ -37,9 +37,6 @@ package appDomain;
 import shapes.Shape3D;
 
 public class Algorithms {
-
-    public static final int SIZE = 100;
-    public static final int UPPER_BOUND = 1000;
     
     private static void swap(Shape3D[] shapesArray, int i, int j) {
         Shape3D temp = shapesArray[i];
