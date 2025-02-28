@@ -1,43 +1,53 @@
+
+package appDomain;
+
 /**
- * This class contains various sorting algorithms
- * to sort an array of Shape3D objects in descending
- * order based on their height. It includes different
- * types of sorting through implementations of:
+ * ===========================================
+ * Algorithms.java - Sorting Algorithms Implementation
+ * ===========================================
  * 
+ * This class contains various sorting algorithms to sort an array of Shape3D objects 
+ * in descending order based on their height, volume, or base area.
+ * 
+ * Implemented sorting algorithms:
  *  - Bubble Sort
  *  - Insertion Sort
  *  - Selection Sort
  *  - Quick Sort 
  *  - Merge Sort
- *  - Heap Sort (as the custom algorithm)
+ *  - Heap Sort (Custom Algorithm)
  *  
- * Heap Sort:
- * An efficient, comparison-based sorting algorithm that
- * utilizes a binary heap. It works by building a max heap
- * from the input data and then repeatedly extracting the
- * element to sort the array descending order.
- * 
+ * Heap Sort Explanation:
+ * An efficient, comparison-based sorting algorithm that utilizes a binary heap.
+ * It works by building a max heap from the input data and then repeatedly extracting
+ * the largest element to sort the array in descending order.
  * 
  * Time Complexity:
  *   - Best Case: O(n log n)
  *   - Average Case: O(n log n)
  *   - Worst Case: O(n log n)
  * 
+ * This class also provides utility functions to swap elements during sorting.
  * 
- * The class also provides utility functions to swap 
- * elements during sorting.
- *
- * These algorithms will be used in the application to
- * analyze sorting performance.
+ * These algorithms are used in the application to analyze sorting performance.
  */
-
-package appDomain;
-
 
 import shapes.Shape3D;
 
+
+/**
+ * Sorting utility class containing multiple sorting algorithms.
+ */
 public class Algorithms {
     
+	
+    /**
+     * Swaps two elements in an array of Shape3D objects.
+     * 
+     * @param shapesArray The array of Shape3D objects.
+     * @param i Index of the first element.
+     * @param j Index of the second element.
+     */
     private static void swap(Shape3D[] shapesArray, int i, int j) {
         Shape3D temp = shapesArray[i];
         shapesArray[i] = shapesArray[j];
@@ -45,7 +55,11 @@ public class Algorithms {
     }
     
     
-    // Bubble Sort (Descending)
+    /**
+     * Sorts the array using Bubble Sort based on shape height in descending order.
+     * 
+     * @param shapesArray The array of Shape3D objects.
+     */
     public static void bubbleSort(Shape3D[] shapesArray) {
         int n = shapesArray.length;
         for (int i = 0; i < n - 1; i++) {
@@ -56,6 +70,7 @@ public class Algorithms {
             }
         }
     }
+    
     public static void bubbleSortByVol(Shape3D[] shapesArray) {
         int n = shapesArray.length;
         for (int i = 0; i < n - 1; i++) {
@@ -78,7 +93,11 @@ public class Algorithms {
     }
 
     
-    // Insertion Sort (Descending)
+    /**
+     * Sorts the array using Insertion Sort based on shape height in descending order.
+     * 
+     * @param shapesArray The array of Shape3D objects.
+     */
     public static void insertionSort(Shape3D[] shapesArray) {
         int n = shapesArray.length;
         for (int i = 1; i < n; i++) {
@@ -120,7 +139,11 @@ public class Algorithms {
     }
 
     
-    // Selection Sort (Descending)
+    /**
+     * Sorts the array using Selection Sort based on shape height in descending order.
+     * 
+     * @param shapesArray The array of Shape3D objects.
+     */    
     public static void selectionSort(Shape3D[] shapesArray) {
         int n = shapesArray.length;
         for (int i = 0; i < n - 1; i++) {
@@ -159,7 +182,14 @@ public class Algorithms {
     }
 
     
-    // QuickSort (Descending)
+    
+    /**
+     * Sorts the array using Quick Sort based on shape height in descending order.
+     * 
+     * @param shapesArray The array of Shape3D objects.
+     * @param low The starting index.
+     * @param high The ending index.
+     */
     public static void quickSort(Shape3D[] shapesArray, int low, int high) {
         if (low < high) {
             int pivotIndex = partition(shapesArray, low, high);
@@ -167,6 +197,16 @@ public class Algorithms {
             quickSort(shapesArray, pivotIndex + 1, high);
         }
     }
+    
+    
+    /**
+     * Helper method to partition the array for Quick Sort.
+     * 
+     * @param shapesArray The array of Shape3D objects.
+     * @param low The starting index.
+     * @param high The ending index.
+     * @return The pivot index.
+     */
     private static int partition(Shape3D[] shapesArray, int low, int high) {
         double pivot = shapesArray[high].getHeight();
         int i = low - 1;
@@ -221,8 +261,13 @@ public class Algorithms {
     }
     
     
-    
-    // Merge Sort (Descending)
+    /**
+     * Sorts the array using Merge Sort based on shape height in descending order.
+     * 
+     * @param shapesArray The array of Shape3D objects.
+     * @param left The starting index.
+     * @param right The ending index.
+     */
     public static void mergeSort(Shape3D[] shapesArray, int left, int right) {
     	if (left < right) {
     		int mid = left + (right - left) / 2;
@@ -309,7 +354,11 @@ public class Algorithms {
     
     
     
-    // Heap Sort (Descending)  - Custom Algorithm
+    /**
+     * Sorts the array using Heap Sort based on shape height in descending order.
+     * 
+     * @param shapesArray The array of Shape3D objects.
+     */
     public static void heapSort(Shape3D[] shapesArray) {
         int n = shapesArray.length;
         for (int i = n / 2 - 1; i >= 0; i--) {
@@ -389,6 +438,4 @@ public class Algorithms {
     }
 
 
-    
-   
 }

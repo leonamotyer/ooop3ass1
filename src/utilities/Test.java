@@ -5,8 +5,11 @@ import shapes.Shape3D;
 
 
 /**
- * This class contains two methods used to test various
- * sorting algorithms.
+ * Utility class for testing sorting algorithms.
+ * 
+ * This class provides methods to measure the execution time of different sorting algorithms
+ * applied to an array of `Shape3D` objects. The results are displayed based on the property
+ * used for sorting (height, volume, or base area).
  *  
  *  - Bubble Sort
  *  - Insertion Sort
@@ -42,7 +45,7 @@ public abstract class Test {
 		long start, stop;
 		int count = 1;
 		
-		
+		// Determine sorting algorithm and property
 		switch(sortType.toLowerCase()) {
     		case "s":
     			{ switch(shapePropType.toLowerCase()) {
@@ -56,6 +59,8 @@ public abstract class Test {
         			Algorithms.selectionSortByVol(shapes);
         			stop = System.currentTimeMillis();
         			break;
+
+       			// Additional cases for other sorting types omitted for brevity
     			default:
     				start = System.currentTimeMillis();
         			Algorithms.selectionSort(shapes);
@@ -165,6 +170,7 @@ public abstract class Test {
     			break;
 		}
 		
+		// Display sorted results at intervals
 		if (shapes.length > 100 && shapes.length < 1001) {
 			int hundred = 100;
 			System.out.println("First Element is: " + sortedShapeProp(shapes[0], shapePropType));

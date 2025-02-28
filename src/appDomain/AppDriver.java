@@ -1,5 +1,25 @@
 package appDomain;
 
+
+/**
+ * ===========================================
+ * AppDriver.java - Main Application Execution
+ * ===========================================
+ * 
+ * Main program to:
+ * - Read user-provided command-line arguments.
+ * - Load shape data from a file.
+ * - Sort shapes based on selected properties.
+ * - Apply chosen sorting algorithm.
+ * - Display results before and after sorting.
+ * 
+ * Error Handling:
+ * - Displays messages for invalid inputs and exits gracefully.
+ * 
+ * @author Team Rauru: Devonte MacLean, Leona Motyer, Yoohyun Kim, Gabrielle Alama
+ * @version 1.0
+ */
+
 import utilities.Test;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,6 +30,11 @@ import appDomain.Algorithms;
 
 import shapes.*;
 import appDomain.Algorithms;
+
+
+/**
+ * Main application class that handles execution.
+ */
 
 public class AppDriver
 {
@@ -26,6 +51,7 @@ public class AppDriver
 	 * 
 	 * @param args the String array containing the command line arguments
 	 */
+	
 	public static void main( String[] args )
 	{
 		String filePath = "";
