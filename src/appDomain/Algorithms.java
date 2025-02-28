@@ -312,7 +312,7 @@ public class Algorithms {
     
     
     
-    // Heap Sort Currently ascending!  - Custom Algorithm
+    // Heap Sort (Descending)  - Custom Algorithm
     public static void heapSort(Shape3D[] shapesArray) {
         int n = shapesArray.length;
         for (int i = n / 2 - 1; i >= 0; i--) {
@@ -324,18 +324,18 @@ public class Algorithms {
         }
     }
     private static void heapify(Shape3D[] shapesArray, int n, int i) {
-        int largest = i;
+        int smallest = i;
         int left = 2 * i + 1;
         int right = 2 * i + 2;
-        if (left < n && shapesArray[left].getHeight() > shapesArray[largest].getHeight()) {
-            largest = left;
+        if (left < n && shapesArray[left].getHeight() < shapesArray[smallest].getHeight()) {
+            smallest = left;
         }
-        if (right < n && shapesArray[right].getHeight() > shapesArray[largest].getHeight()) {
-            largest = right;
+        if (right < n && shapesArray[right].getHeight() < shapesArray[smallest].getHeight()) {
+        	smallest = right;
         }
-        if (largest != i) {
-            swap(shapesArray, i, largest);
-            heapify(shapesArray, n, largest);
+        if (smallest != i) {
+            swap(shapesArray, i, smallest);
+            heapify(shapesArray, n, smallest);
         }
     }
     
@@ -350,18 +350,18 @@ public class Algorithms {
         }
     }
     private static void heapifyByVol(Shape3D[] shapesArray, int n, int i) {
-        int largest = i;
+        int smallest = i;
         int left = 2 * i + 1;
         int right = 2 * i + 2;
-        if (left < n && shapesArray[left].getVolume() > shapesArray[largest].getVolume()) {
-            largest = left;
+        if (left < n && shapesArray[left].getVolume() < shapesArray[smallest].getVolume()) {
+        	smallest = left;
         }
-        if (right < n && shapesArray[right].getVolume() > shapesArray[largest].getVolume()) {
-            largest = right;
+        if (right < n && shapesArray[right].getVolume() < shapesArray[smallest].getVolume()) {
+        	smallest = right;
         }
-        if (largest != i) {
-            swap(shapesArray, i, largest);
-            heapifyByVol(shapesArray, n, largest);
+        if (smallest != i) {
+            swap(shapesArray, i, smallest);
+            heapifyByVol(shapesArray, n, smallest);
         }
     }
     
@@ -376,18 +376,18 @@ public class Algorithms {
         }
     }
     private static void heapifyByArea(Shape3D[] shapesArray, int n, int i) {
-        int largest = i;
+        int smallest = i;
         int left = 2 * i + 1;
         int right = 2 * i + 2;
-        if (left < n && shapesArray[left].getBaseArea() > shapesArray[largest].getBaseArea()) {
-            largest = left;
+        if (left < n && shapesArray[left].getBaseArea() < shapesArray[smallest].getBaseArea()) {
+        	smallest = left;
         }
-        if (right < n && shapesArray[right].getBaseArea() > shapesArray[largest].getBaseArea()) {
-            largest = right;
+        if (right < n && shapesArray[right].getBaseArea() < shapesArray[smallest].getBaseArea()) {
+        	smallest = right;
         }
-        if (largest != i) {
-            swap(shapesArray, i, largest);
-            heapifyByArea(shapesArray, n, largest);
+        if (smallest != i) {
+            swap(shapesArray, i, smallest);
+            heapifyByArea(shapesArray, n, smallest);
         }
     }
 
