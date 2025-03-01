@@ -90,9 +90,9 @@ public abstract class Shape3D implements Comparable<Shape3D> {
      */
     @Override
     public String toString() {
-        return this.getClass().getSimpleName() + " [height=" + height 
-                + ", volume=" + getVolume() 
-                + ", baseArea=" + getBaseArea() + "]";
+        return this.getClass().getSimpleName() + "             [height=" + height 
+                + ",       volume=" + getVolume() 
+                + ",       baseArea=" + getBaseArea() + "]";
     }
     
     
@@ -102,7 +102,7 @@ public abstract class Shape3D implements Comparable<Shape3D> {
      * @return A formatted string representing the height.
      */
     public String heightToString() {
-        return this.getClass().getSimpleName() + " [height=" + height + "]";
+        return this.getClass().getSimpleName() + "             [height=" + height + "]";
     }
     
     
@@ -112,7 +112,7 @@ public abstract class Shape3D implements Comparable<Shape3D> {
      * @return A formatted string representing the volume.
      */
     public String volumeToString() {
-        return this.getClass().getSimpleName() + " [volume=" + getVolume() + "]";
+        return this.getClass().getSimpleName() + "             [volume=" + getVolume() + "]";
     }
     
     
@@ -122,6 +122,6 @@ public abstract class Shape3D implements Comparable<Shape3D> {
      * @return A formatted string representing the base area.
      */
     public String baseToString() {
-        return this.getClass().getSimpleName() + " [baseArea=" + getBaseArea() + "]";
+        return this.getClass().getSimpleName() + "             [baseArea=" + getBaseArea() + "]";
     }
 }

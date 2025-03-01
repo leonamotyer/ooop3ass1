@@ -156,6 +156,11 @@ public class Algorithms {
             swap(shapesArray, i, maxIdx);
         }
     }
+    /**
+     * Sorts the array using Selection Sort based on shape volume in descending order.
+     * 
+     * @param shapesArray The array of Shape3D objects.
+     */   
     public static void selectionSortByVol(Shape3D[] shapesArray) {
         int n = shapesArray.length;
         for (int i = 0; i < n - 1; i++) {
@@ -168,6 +173,11 @@ public class Algorithms {
             swap(shapesArray, i, maxIdx);
         }
     }
+    /**
+     * Sorts the array using Selection Sort based on shape area in descending order.
+     * 
+     * @param shapesArray The array of Shape3D objects.
+     */   
     public static void selectionSortByArea(Shape3D[] shapesArray) {
         int n = shapesArray.length;
         for (int i = 0; i < n - 1; i++) {

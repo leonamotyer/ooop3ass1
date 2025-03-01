@@ -34,6 +34,7 @@ import appDomain.Algorithms;
 
 /**
  * Main application class that handles execution.
+ * 
  */
 
 public class AppDriver
@@ -47,9 +48,10 @@ public class AppDriver
 	 * When an error message is displayed, the program will end so the user 
 	 * can immediately enter new command line arguments.
 	 * 
-	 * Used the -f"res\shapes1".txt as the file parsing
+	 * Used the -f"res\shapes1".txt as the file for creating shapes
 	 * 
 	 * @param args the String array containing the command line arguments
+	 * @throws StringIndexOutOfBoundsException 
 	 */
 	
 	public static void main( String[] args )
@@ -140,35 +142,7 @@ public class AppDriver
 
 		int count = 1;
 		if (shapes.length != 0) {
-			System.out.println("\n\nPre Sorted Shapes:");
-			
-			if (shapes.length > 100 && shapes.length < 1001) {
-				int hundred = 100;
-				System.out.println("First Element is: " + shapes[0].toString());
-				for (int i = 0; i < 10; i++) {
-					System.out.println(hundred + "-th Element is: " + shapes[hundred-1].toString());
-					hundred += 100;
-				}
-				System.out.println("Last Element is: " + shapes[shapes.length-1].toString());
-				
-			}
-			else if (shapes.length > 1000) {
-				int thousand = 1000;
-				System.out.println("First Element is: " + shapes[0].toString());
-				for (int i = 0; i < 20; i++) {
-					System.out.println(thousand + "-th Element is: " + shapes[thousand-1].toString());
-					thousand += 1000;
-				}
-				System.out.println("Last Element is: " + shapes[shapes.length-1].toString());
-				
-			}
-			else {
-				for (Shape3D shape : shapes) {
-					System.out.println(count + ". " + shape.toString());
-					count += 1;
-				}
-			}
-			
+						
 			System.out.println("\n\n\n" + sortTypeToString(sortType) + " Sorted Shapes: " );
 			
 			System.out.println(sortTypeToString(sortType) 
@@ -181,8 +155,6 @@ public class AppDriver
 			System.err.println("File found but had no shapes");
 			System.exit(0);
 		}
-		
-		
 	}
 	
 	/**
@@ -210,18 +182,14 @@ public class AppDriver
 	}
 	
 	/**
-	 * Method to  
+	 * Method to create the array of Shape3D objects
 	 * 
-	 * Used the -f"res\shapes1".txt as the file parsing
+	 * @param filePath the file path string used to locate the shapes file
 	 * 
-	 * The method will print the contents of the sorted array, only 
-	 * showing the shape property that was used to sort.
+	 * @throws NumberFormatException if the first line in the file cannot
+	 * be parsed into a integer
 	 * 
-	 * @param shapes the array of Shape3D objects to be sorted
-	 * @param sortType the type of sort algorithm to be used
-	 * @param shapePropType the shape property used to compare each object
-	 * 
-	 * @return long stop-start run time for the sorting algorithm used
+	 * @return Shape3D[] an array of Shape3D objects 
 	 */
 	public static Shape3D[] generateShapes(String filePath) {
 		int numberOfShapes = 0;

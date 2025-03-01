@@ -171,34 +171,26 @@ public abstract class Test {
 		}
 		
 		// Display sorted results at intervals
-		if (shapes.length > 100 && shapes.length < 1001) {
-			int hundred = 100;
-			System.out.println("First Element is: " + sortedShapeProp(shapes[0], shapePropType));
-			for (int i = 0; i < 10; i++) {
-				System.out.println(hundred + "-th Element is: " + sortedShapeProp(shapes[hundred-1], shapePropType));
-				hundred += 100;
-			}
-			System.out.println("Last Element is: " + sortedShapeProp(shapes[shapes.length-1], shapePropType));
-			
-		}
-		else if (shapes.length > 1000) {
+		if (shapes.length > 1000) {
 			int thousand = 1000;
-			System.out.println("First Element is: " + sortedShapeProp(shapes[0], shapePropType));
-			for (int i = 0; i < 20; i++) {
-				System.out.println(thousand + "-th Element is: " + sortedShapeProp(shapes[thousand-1], shapePropType));
-				thousand += 1000;
+			System.out.println("First Element is:      " + sortedShapeProp(shapes[0], shapePropType));
+			for (int i = 0; i < shapes.length; i++) {
+				if (i == thousand) {
+					System.out.println(thousand + "-th Element is:      " + sortedShapeProp(shapes[thousand-1], shapePropType));
+					thousand += 1000;
+				}
+				
 			}
-			System.out.println("Last Element is: " + sortedShapeProp(shapes[shapes.length-1], shapePropType));
+			System.out.println("Last Element is:      " + sortedShapeProp(shapes[shapes.length-1], shapePropType));
 			
 		}
 		else {
 			for (Shape3D shape : shapes) {
-				System.out.println(count + ". " + sortedShapeProp(shape, shapePropType));
+				System.out.println(count + ".      " + sortedShapeProp(shape, shapePropType));
 				count += 1;
 			}
 		}
-		
-		
+				
 		return stop - start;
 	}
 	
