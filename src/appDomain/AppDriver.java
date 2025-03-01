@@ -1,5 +1,26 @@
 package appDomain;
 
+
+/**
+ * ===========================================
+ * AppDriver.java - Main Application Execution
+ * ===========================================
+ * 
+ * Main program to:
+ * - Read user-provided command-line arguments.
+ * - Load shape data from a file.
+ * - Sort shapes based on selected properties.
+ * - Apply chosen sorting algorithm.
+ * - Display results before and after sorting.
+ * 
+ * Error Handling:
+ * - Displays messages for invalid inputs and exits gracefully.
+ * 
+ * @author Team Rauru: Devonte MacLean, Leona Motyer, Yoohyun Kim, Gabrielle Alama
+ * @version 1.0
+ */
+
+import utilities.Test;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -8,96 +29,168 @@ import java.util.List;
 import appDomain.Algorithms;
 
 import shapes.*;
+import appDomain.Algorithms;
 
+
+/**
+ * Main application class that handles execution.
+ * 
+ */
 
 public class AppDriver
 {
-
+	/**
+	 * main Method used to collect and use user inputs via command
+	 * line arguments, create an array of Shape3D objects, and test
+	 * the performance of 6 different sorting algorithms.
+	 * 
+	 * Error messages are used to handle invalid user inputs and exceptions. 
+	 * When an error message is displayed, the program will end so the user 
+	 * can immediately enter new command line arguments.
+	 * 
+	 * Used the -f"res\shapes1".txt as the file for creating shapes
+	 * 
+	 * @param args the String array containing the command line arguments
+	 * @throws StringIndexOutOfBoundsException 
+	 */
+	
 	public static void main( String[] args )
 	{
-		// TODO Auto-generated method stub
 		String filePath = "";
 		String shapePropType = "";
 		String sortType = "";
 		
-		//reading command line arguments
+		// Check if command line arguments were entered
 		if (args.length > 0) {
 			for (int i=0; i < args.length; i++) {
+				
+				// Check for flag string:
+				// - Exception thrown if the command line arguments aren't 2 characters i.e. flag
+				
+				// Check for filePath, shapePropType and sortType:
+				// - Exception thrown if they don't contain characters after the first two i.e. -f
+				
+				// Any time a check fails, an error message will be displayed and the String that 
+				// caused the failure will be displayed
 				try {
-					// Check for flag string:
-					// - Exception thrown if the command line arguments aren't 2 characters i.e. flag
-					// Check for filePath, shapePropType and sortType:
-					// - Exception thrown if the "" "" "" don't contain characters after the first two i.e. 
 					String flag = args[i].substring(0, 2); 
-					if (flag.equalsIgnoreCase("-F")) { 
+					if (flag.equalsIgnoreCase("-F") && args[i].length() > 2) { 
 		
 				        filePath = args[i].substring(2); 
-				        
-				        // Used to ensure correct retrieval of command line args
-				        // Delete before submission
-				        System.out.println("File Path: " + filePath);
+				        System.out.println("File Path Selected: " + filePath);
 				    }
-				    else if (flag.equalsIgnoreCase("-T")) {
-				    	shapePropType = args[i].substring(2);
+				    else if (flag.equalsIgnoreCase("-T") && args[i].length() > 2) {
+				    	shapePropType = args[i].substring(2).toLowerCase();
 				    	
-				    	// Used to ensure correct retrieval of command line args
-				        // Delete before submission
-				    	System.out.println("Shape Property: " + shapePropType);
-				    }
-				    else if (flag.equalsIgnoreCase("-S")) {
-				    	sortType = args[i].substring(2);
+				    	if (shapePropType.equalsIgnoreCase("v") 
+				    			|| shapePropType.equalsIgnoreCase("h")
+				    			|| shapePropType.equalsIgnoreCase("a")) {
+				    		System.out.println("Shape Property Selected: " + shapePropType);
+				    	}
+				    	else {
+				    		System.err.println("The CLA of " + args[i] + " can only "
+				    				+ "have one of: \nv, h, a following -t");
+				    		System.exit(0);
+				    	}
 				    	
-				    	// Used to ensure correct retrieval of command line args
-				        // Delete before submission
-				    	System.out.println("Sort Type: " + sortType);
 				    }
-				    else {}
+				    else if (flag.equalsIgnoreCase("-S") && args[i].length() > 2) {
+				    	sortType = args[i].substring(2).toLowerCase();
+				    	
+				    	if (sortType.equalsIgnoreCase("b") 
+				    			|| sortType.equalsIgnoreCase("s")
+				    			|| sortType.equalsIgnoreCase("i")
+				    			|| sortType.equalsIgnoreCase("m")
+				    			|| sortType.equalsIgnoreCase("q")
+				    			|| sortType.equalsIgnoreCase("z")) {
+				    		System.out.println("Sort Type Selected: " + sortType);
+				    	}
+				    	else {
+				    		System.err.println("The CLA of " + args[i] + " can only "
+				    				+ "have one of: \nb, s, i, m, q, z following -s");
+				    		System.exit(0);
+				    	}
+				    	
+				    }
+				    else {
+				    	System.err.println("Command Line Argument of: " + args[i] + " is invalid"
+								+ "\nPlease match the following argument format:\n"
+								+ "-f<file_path> -t<criterion> -s<algorithm>\n"
+								+ "Where criterion: v, h, or a and "
+								+ "algorithm: b, s, i, m, q, z");
+				    	System.exit(0);
+				    }
 				}
 				catch (StringIndexOutOfBoundsException e) {
-					System.err.println("Command Line Argument (index: " + i + ") is invalid");
+					System.err.println("Command Line Argument of: " + args[i] + " is invalid"
+							+ "\nPlease match the following argument format:\n"
+							+ "-f<file_path> -t<criterion> -s<algorithm>\n"
+							+ "Where criterion: v, h, or a and "
+							+ "algorithm: b, s, i, m, q, z");
+					System.exit(0);
 				}
 			}
 		}
-		
-		
-		if (!filePath.isEmpty()) {
-			Shape3D[] shapes = generateShapes(filePath);
-			
-			// Used to test correct File I/O implementation
-			// Delete before submission
-			int count = 1;
-			if (shapes.length != 0) {
-    			for (Shape3D shape : shapes) {
-    				System.out.println(count + ". " + shape.toString());
-    				count += 1;
-    			}
-			}
+		else {
+			System.err.println("Missing Command Line Arguments");
+			System.exit(0);
 		}
 		
 		
+		Shape3D[] shapes = generateShapes(filePath);
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		// refer to demo001 BasicFileIO.java for a simple example on how to
-		// read data from a text file
 
-		// refer to demo01 Test.java for an example on how to parse command
-		// line arguments and benchmarking tests
-
-		// refer to demo02 Student.java for comparable implementation, and
-		// NameCompare.java or GradeCompare for comparator implementations
-
-		// refer to demo02 KittySort.java on how to use a custom sorting
-		// algorithm on a list of comparables to sort using either the
-		// natural order (comparable) or other orders (comparators)
-
+		int count = 1;
+		if (shapes.length != 0) {
+						
+			System.out.println("\n\n\n" + sortTypeToString(sortType) + " Sorted Shapes: " );
+			
+			System.out.println(sortTypeToString(sortType) 
+					+ " Sort run time was: " 
+					+ (Test.testSort(shapes, sortType, shapePropType)) 
+					+ " milliseconds");
+			
+		}
+		else {
+			System.err.println("File found but had no shapes");
+			System.exit(0);
+		}
 	}
+	
+	/**
+	 * Method to return the full word string of the sortType parameter  
+	 * 
+	 * @param sortType the type of sorting algorithm selected via command line argument.
+	 * 
+	 * @return String the full word corresponding to the sortType parameter
+	 */
+	public static String sortTypeToString(String sortType) {
+		switch (sortType.toLowerCase()) {
+			case "s":
+				return "Selection";
+			case "i":
+				return "Insertion";
+			case "m":
+				return "Merge";
+			case "q":
+				return "Quick";
+			case "z":
+				return "Heap";
+			default:
+				return "Bubble";
+		}
+	}
+	
+	/**
+	 * Method to create the array of Shape3D objects
+	 * 
+	 * @param filePath the file path string used to locate the shapes file
+	 * 
+	 * @throws NumberFormatException if the first line in the file cannot
+	 * be parsed into a integer
+	 * 
+	 * @return Shape3D[] an array of Shape3D objects 
+	 */
 	public static Shape3D[] generateShapes(String filePath) {
 		int numberOfShapes = 0;
 		try {
@@ -128,34 +221,27 @@ public class AppDriver
 		                    switch (type) {
 									case "cone":
 			                            shapes[i - 1] = new Cone(param1, param2);
-			                            Algorithms.coneArray[i - 1] = (Cone) shapes[i - 1];
 			                            break;
 			                        case "cylinder":
 			                            shapes[i - 1] = new Cylinder(param1, param2);
-			                            Algorithms.cylinderArray[i - 1] = (Cylinder) shapes[i - 1];
 			                            break;
 			                        case "octagonalprism":
 			                            shapes[i - 1] = new OctagonalPrism(param1, param2);
-			                            Algorithms.octagonArray[i - 1] = (OctagonalPrism) shapes[i - 1];
 			                            break;
 			                        case "pentagonalprism":
 			                            shapes[i - 1] = new PentagonalPrism(param1, param2);
-			                            Algorithms.pentArray[i - 1] = (PentagonalPrism) shapes[i - 1];
 			                            break;
 			                        case "pyramid":
 			                            shapes[i - 1] = new Pyramid(param1, param2);
-			                            Algorithms.pyramidArray[i - 1] = (Pyramid) shapes[i - 1];
 			                            break;
 			                        case "squareprism":
 			                            shapes[i - 1] = new SquarePrism(param1, param2);
-			                            Algorithms.squareArray[i - 1] = (SquarePrism) shapes[i - 1];
 			                            break;
 			                        case "triangularprism":
 			                            shapes[i - 1] = new TriangularPrism(param1, param2);
-			                            Algorithms.triangleArray[i - 1] = (TriangularPrism) shapes[i - 1];
 			                            break;
 			                        default:
-			                        System.err.println("Skipping unknown shape type: " + type);	
+			                        	System.err.println("Skipping unknown shape type: " + type);	
 			                        break;
 		                    }
 		        		}
@@ -165,12 +251,13 @@ public class AppDriver
 		        	}
 		        	
 		        }
-		        System.out.println("Shapes count is: " + shapes.length);
+		        System.out.println("\n\nShapes count is: " + shapes.length);
 		        return shapes;
 			}
 		}
 		catch(IOException e){
-			System.err.println("The file titled " + filePath + " was not found");
+			System.err.println("The file titled \'" + filePath + "\' was not found");
+			System.exit(0);
 		}
 		Shape3D[] emptyShapes = new Shape3D[0];
 		return emptyShapes;
